@@ -1,13 +1,9 @@
 import touchio
 import board
 import time
+from adafruit_circuitplayground.express import cpx
 
 bpm = 120 #beats per minute for sustained hold, change this to suit your tempo
-
-# enable the speaker
-spkrenable = DigitalInOut(board.SPEAKER_ENABLE)
-spkrenable.direction = Direction.OUTPUT
-spkrenable.value = True
 
 # make the input cap sense pads
 capPins = (board.A1, board.A2, board.A3, board.A4, board.A5,
@@ -24,9 +20,7 @@ audiofiles = ["bd_tek.wav", "elec_hi_snare.wav", "elec_cymbal.wav",
 
 def play_file(filename):
     print("playing file "+filename)
-    f = open(filename, "rb")
-    a = audioio.AudioOut(board.A0, f)
-    a.play()
+    cpx.play_file(filename)
     time.sleep(bpm/960) #sixteenthNote delay
 
 while True:
